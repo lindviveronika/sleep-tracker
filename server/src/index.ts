@@ -1,44 +1,54 @@
-import http, { IncomingMessage, ServerResponse } from "node:http";
-import { MongoClient } from "mongodb";
 import config from "./config";
+import sleepEntryRepository from "./sleepEntryRepository";
+import express, { Request, Response } from "express";
 
-type SleepEntry = {
-  fellAsleepAt: Date;
-  wokeUpAt: Date;
-};
-
-if (!config.mongodbUser || !config.mongodbPassword) {
-  throw new Error("Missing MongoDB credentials");
+class ParsingError extends Error {
+  statusCode = 400;
+  constructor(message?: string) {
+    super(message);
+  }
 }
 
-const hostname = config.hostname;
+const parseDate = (dateString: string) => {
+  const date = Date.parse(dateString);
+  if (isNaN(date)) {
+    throw new ParsingError("Invalid date format");
+  }
+  return new Date(date);
+};
+
+const app = express();
+app.use(express.json());
 const port = config.port;
-const userName = encodeURIComponent(config.mongodbUser);
-const password = encodeURIComponent(config.mongodbPassword);
-const authMechanism = "DEFAULT";
-const databaseName = config.databaseName;
-const mongoUri = `mongodb://${userName}:${password}@${config.mongodbUrl}/?authMechanism=${authMechanism}`;
-const mongoClient = new MongoClient(mongoUri);
 
-mongoClient.connect();
-console.log("Connected to MongoDB");
-const db = mongoClient.db(databaseName);
-console.log(`Using database: ${databaseName}`);
-
-const collection = db.collection<SleepEntry>("sleepEntries");
-collection.insertOne({
-  fellAsleepAt: new Date("2024-06-10"),
-  wokeUpAt: new Date("2024-06-11"),
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}!`);
 });
 
-const server = http.createServer(
-  (req: IncomingMessage, res: ServerResponse) => {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/plain");
-    res.end("Hello, World!\n");
-  }
-);
+app.get("/sleep-entries", async (_req: Request, res: Response) => {
+  const sleepEntries = await sleepEntryRepository.getAll();
+  res.send(sleepEntries);
+});
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.post("/sleep-entries", async (req: Request, res: Response) => {
+  if (!req.body.fellAsleepAt || !req.body.wokeUpAt) {
+    res.status(400).send("Missing required fields");
+    return;
+  }
+
+  try {
+    const fellAsleepAt = parseDate(req.body.fellAsleepAt);
+    const wokeUpAt = parseDate(req.body.wokeUpAt);
+    const result = await sleepEntryRepository.insertOne({
+      fellAsleepAt,
+      wokeUpAt,
+    });
+    res.status(201).send(result.insertedId);
+  } catch (error: unknown) {
+    if (error instanceof ParsingError) {
+      res.status(400).send(error.message);
+    } else {
+      throw error;
+    }
+  }
 });
