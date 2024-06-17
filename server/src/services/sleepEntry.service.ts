@@ -1,8 +1,8 @@
 import { Collection, InsertOneResult } from "mongodb";
-import db from "./db";
-import { Repository, SleepEntry } from "./types";
+import db from "../db";
+import { Service, SleepEntry } from "../types";
 
-class SleepEntryRepository implements Repository<SleepEntry> {
+class SleepEntryService implements Service<SleepEntry> {
   private readonly collection: Collection<SleepEntry>;
 
   constructor() {
@@ -20,4 +20,4 @@ class SleepEntryRepository implements Repository<SleepEntry> {
   }
 }
 
-export default new SleepEntryRepository();
+export default new SleepEntryService();

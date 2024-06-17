@@ -1,5 +1,5 @@
 import { Router } from "express";
-import sleepEntryRepository from "../sleepEntryRepository";
+import sleepEntryService from "../services/sleepEntry.service";
 import { Request, Response } from "express";
 import { parseDate } from "../utils/parseDate";
 import ParsingError from "../errors/ParsingError";
@@ -7,7 +7,7 @@ import ParsingError from "../errors/ParsingError";
 const sleepEntryRouter = Router();
 
 sleepEntryRouter.get("/sleep-entries", async (_req: Request, res: Response) => {
-  const sleepEntries = await sleepEntryRepository.getAll();
+  const sleepEntries = await sleepEntryService.getAll();
   res.send(sleepEntries);
 });
 
@@ -20,7 +20,7 @@ sleepEntryRouter.post("/sleep-entries", async (req: Request, res: Response) => {
   try {
     const fellAsleepAt = parseDate(req.body.fellAsleepAt);
     const wokeUpAt = parseDate(req.body.wokeUpAt);
-    const result = await sleepEntryRepository.insertOne({
+    const result = await sleepEntryService.insertOne({
       fellAsleepAt,
       wokeUpAt,
     });

@@ -5,6 +5,6 @@ export interface SleepEntry extends Document {
   wokeUpAt: Date;
 }
 
-export interface Repository<T extends Document> {
+export interface Service<T extends Document> {
   insertOne(document: T): Promise<InsertOneResult<T>>;
 }
