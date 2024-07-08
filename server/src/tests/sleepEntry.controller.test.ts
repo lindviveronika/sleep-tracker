@@ -1,5 +1,8 @@
 import { expect, it, vi } from "vitest";
-import { addSleepEntry } from "../controllers/sleepEntry.controller";
+import {
+  addSleepEntry,
+  getSleepEntries,
+} from "../controllers/sleepEntry.controller";
 import { describe } from "node:test";
 
 const { mockedInsertOne } = vi.hoisted(() => {
@@ -8,10 +11,17 @@ const { mockedInsertOne } = vi.hoisted(() => {
   };
 });
 
+const { mockedGetAll } = vi.hoisted(() => {
+  return {
+    mockedGetAll: vi.fn(),
+  };
+});
+
 vi.mock("../services/sleepEntry.service", async () => {
   return {
     default: {
       insertOne: mockedInsertOne,
+      getAll: mockedGetAll,
     },
   };
 });
@@ -65,5 +75,24 @@ describe("addSleepEntry", () => {
     await expect(addSleepEntry(fellAsleepAt, wokeUpAt)).rejects.toThrow(
       errorMessage
     );
+  });
+});
+
+describe("getSleepEntries", () => {
+  it("should get all sleep entries", async () => {
+    const sleepEntries = [{ fellAsleepAt: new Date(), wokeUpAt: new Date() }];
+    mockedGetAll.mockResolvedValueOnce(sleepEntries);
+
+    const result = await getSleepEntries();
+
+    expect(result.statusCode).toBe(200);
+    expect(result.data).toBe(sleepEntries);
+  });
+
+  it("should throw an error if an unexpected error occurs", async () => {
+    const errorMessage = "Unexpected error";
+    mockedGetAll.mockRejectedValueOnce(new Error(errorMessage));
+
+    await expect(getSleepEntries()).rejects.toThrow(errorMessage);
   });
 });
