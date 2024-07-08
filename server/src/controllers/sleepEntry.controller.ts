@@ -1,5 +1,4 @@
 import { parseDate } from "../utils/parseDate";
-import ParsingError from "../errors/ParsingError";
 import sleepEntryService from "../services/sleepEntry.service";
 
 interface Result {
@@ -18,28 +17,25 @@ export async function addSleepEntry(
     };
   }
 
-  try {
-    const fellAsleepAtDate = parseDate(fellAsleepAt);
-    const wokeUpAtDate = parseDate(wokeUpAt);
-    const result = await sleepEntryService.insertOne({
-      fellAsleepAt: fellAsleepAtDate,
-      wokeUpAt: wokeUpAtDate,
-    });
+  const fellAsleepAtDate = parseDate(fellAsleepAt);
+  const wokeUpAtDate = parseDate(wokeUpAt);
 
+  if (fellAsleepAtDate == null || wokeUpAtDate == null) {
     return {
-      statusCode: 201,
-      data: result.insertedId,
+      statusCode: 400,
+      data: "Dates must be in date time string format",
     };
-  } catch (error: unknown) {
-    if (error instanceof ParsingError) {
-      return {
-        statusCode: 400,
-        data: error.message,
-      };
-    }
-
-    throw error;
   }
+
+  const result = await sleepEntryService.insertOne({
+    fellAsleepAt: fellAsleepAtDate,
+    wokeUpAt: wokeUpAtDate,
+  });
+
+  return {
+    statusCode: 201,
+    data: result.insertedId,
+  };
 }
 
 export async function getSleepEntries(): Promise<Result> {

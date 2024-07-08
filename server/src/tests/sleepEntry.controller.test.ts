@@ -53,7 +53,7 @@ describe("addSleepEntry", () => {
     const result = await addSleepEntry(fellAsleepAt, wokeUpAt);
 
     expect(result.statusCode).toBe(400);
-    expect(result.data).toBe("Invalid date format");
+    expect(result.data).toBe("Dates must be in date time string format");
   });
 
   it("should throw an error if an unexpected error occurs", async () => {
