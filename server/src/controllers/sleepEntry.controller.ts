@@ -3,7 +3,7 @@ import ParsingError from "../errors/ParsingError";
 import sleepEntryService from "../services/sleepEntry.service";
 
 interface Result {
-  status: number;
+  statusCode: number;
   data: any;
 }
 
@@ -13,7 +13,7 @@ export async function addSleepEntry(
 ): Promise<Result> {
   if (!fellAsleepAt || !wokeUpAt) {
     return {
-      status: 400,
+      statusCode: 400,
       data: "Missing required fields",
     };
   }
@@ -27,13 +27,13 @@ export async function addSleepEntry(
     });
 
     return {
-      status: 201,
+      statusCode: 201,
       data: result.insertedId,
     };
   } catch (error: unknown) {
     if (error instanceof ParsingError) {
       return {
-        status: 400,
+        statusCode: 400,
         data: error.message,
       };
     }
@@ -46,7 +46,7 @@ export async function getSleepEntries(): Promise<Result> {
   const sleepEntries = await sleepEntryService.getAll();
 
   return {
-    status: 200,
+    statusCode: 200,
     data: sleepEntries,
   };
 }

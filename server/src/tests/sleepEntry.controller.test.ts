@@ -24,7 +24,7 @@ describe("addSleepEntry", () => {
 
     const result = await addSleepEntry(fellAsleepAt, wokeUpAt);
 
-    expect(result.status).toBe(201);
+    expect(result.statusCode).toBe(201);
     expect(result.data).toBe("mocked-id");
   });
 
@@ -33,7 +33,7 @@ describe("addSleepEntry", () => {
 
     const result = await addSleepEntry(fellAsleepAt, "");
 
-    expect(result.status).toBe(400);
+    expect(result.statusCode).toBe(400);
     expect(result.data).toBe("Missing required fields");
   });
 
@@ -42,7 +42,7 @@ describe("addSleepEntry", () => {
 
     const result = await addSleepEntry("", wokeUpAt);
 
-    expect(result.status).toBe(400);
+    expect(result.statusCode).toBe(400);
     expect(result.data).toBe("Missing required fields");
   });
 
@@ -52,7 +52,7 @@ describe("addSleepEntry", () => {
 
     const result = await addSleepEntry(fellAsleepAt, wokeUpAt);
 
-    expect(result.status).toBe(400);
+    expect(result.statusCode).toBe(400);
     expect(result.data).toBe("Invalid date format");
   });
 
