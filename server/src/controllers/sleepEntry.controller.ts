@@ -1,10 +1,6 @@
 import { parseDate } from "../utils/parseDate";
 import sleepEntryService from "../services/sleepEntry.service";
-
-interface Result {
-  statusCode: number;
-  data: any;
-}
+import { Result } from "../types";
 
 export async function addSleepEntry(
   fellAsleepAt: string,
