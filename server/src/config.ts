@@ -5,4 +5,5 @@ export default {
   databaseName: process.env.MONGODB_DB_NAME,
   mongodbUser: process.env.MONGODB_USER,
   mongodbPassword: process.env.MONGODB_PASSWORD,
+  clientUrl: process.env.CLIENT_URL,
 };
