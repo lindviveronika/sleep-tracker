@@ -31,15 +31,13 @@ export default function SleepEntryForm() {
     }
   }
 
-  function handleSleepStartTimeChange(
+  function handleFellAsleepAtChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
     setFormData({ ...formData, fellAsleepAt: event.target.value });
   }
 
-  function handleSleepEndTimeChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
+  function handleWokeUpAtChange(event: React.ChangeEvent<HTMLInputElement>) {
     setFormData({ ...formData, wokeUpAt: event.target.value });
   }
 
@@ -48,7 +46,7 @@ export default function SleepEntryForm() {
       <label>
         <span>Fell asleep at:</span>
         <input
-          onChange={handleSleepStartTimeChange}
+          onChange={handleFellAsleepAtChange}
           type="datetime-local"
           required
           value={formData.fellAsleepAt}
@@ -57,7 +55,7 @@ export default function SleepEntryForm() {
       <label>
         <span>Woke up at:</span>
         <input
-          onChange={handleSleepEndTimeChange}
+          onChange={handleWokeUpAtChange}
           type="datetime-local"
           required
           value={formData.wokeUpAt}
