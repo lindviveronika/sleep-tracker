@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import hasValidDateOrders from "./hasValidDateOrders";
-import { postRequest } from "./postRequest";
+import hasValidDateOrders from "../utils/hasValidDateOrders";
+import { postRequest } from "../utils/postRequest";
 
 interface SleepEntryFormData {
   fellAsleepAt?: string;
