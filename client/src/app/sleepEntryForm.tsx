@@ -27,13 +27,16 @@ export default function SleepEntryForm() {
       return;
     }
 
-    const response = await fetch("http://localhost:8080/sleep-entries", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(formData),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/sleep-entries`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(formData),
+      }
+    );
 
     if (response.ok) {
       console.log("successfully submitted");
