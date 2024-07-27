@@ -7,6 +7,17 @@ interface SleepEntryFormData {
   wokeUpAt?: string;
 }
 
+function hasValidDateOrders(start: string, end: string) {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  if (startDate >= endDate) {
+    return false;
+  }
+
+  return true;
+}
+
 export default function SleepEntryForm() {
   const [formData, setFormData] = useState<SleepEntryFormData>({
     fellAsleepAt: "",
@@ -15,6 +26,16 @@ export default function SleepEntryForm() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!formData.fellAsleepAt || !formData.wokeUpAt) {
+      console.log("dates needs to be provided");
+      return;
+    }
+
+    if (!hasValidDateOrders(formData.fellAsleepAt, formData.wokeUpAt)) {
+      console.log("woke up time needs to be after fell asleep time");
+      return;
+    }
 
     const response = await fetch("http://localhost:8080/sleep-entries", {
       headers: {
