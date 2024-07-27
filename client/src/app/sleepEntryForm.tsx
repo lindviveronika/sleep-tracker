@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import hasValidDateOrders from "./hasValidDateOrders";
+import { postRequest } from "./postRequest";
 
 interface SleepEntryFormData {
   fellAsleepAt?: string;
@@ -27,22 +28,13 @@ export default function SleepEntryForm() {
       return;
     }
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/sleep-entries`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(formData),
-      }
-    );
-
-    if (response.ok) {
-      console.log("successfully submitted");
-    } else {
-      console.log("something went wrong....");
-    }
+    postRequest(`${process.env.NEXT_PUBLIC_SERVER_URL}/sleep-entries`, formData)
+      .then(() => {
+        console.log("successfully submitted");
+      })
+      .catch((error) => {
+        console.log("something went wrong....", error);
+      });
   }
 
   function handleFellAsleepAtChange(
