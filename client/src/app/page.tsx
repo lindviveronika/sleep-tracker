@@ -18,11 +18,20 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <span className={styles.moon}>🌙</span>
       <h1>Daily sleep tracker</h1>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis
+        fuga vero fugit quod? In nulla deleniti nemo laboriosam alias
+        repudiandae? Commodi temporibus quibusdam eos repellat dicta provident
+        unde aliquam et.
+      </p>
       <Dialog onClose={handleCloseNewEntryDialog} open={showNewEntryDialog}>
         <SleepEntryForm />
       </Dialog>
-      <button onClick={handleNewEntryClick}>New entry</button>
+      <button className={styles.primaryButton} onClick={handleNewEntryClick}>
+        New entry
+      </button>
     </main>
   );
 }

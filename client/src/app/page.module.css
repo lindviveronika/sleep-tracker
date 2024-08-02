@@ -1,8 +1,44 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 6vw;
   min-height: 100vh;
+  max-width: 40rem;
+  margin: auto;
+}
+
+.moon {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.main h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.main p {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.primaryButton {
+  margin-top: 4rem;
+  color: var(--raisin-black);
+  background: var(--hunyadi-yellow);
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 2.5rem;
+  width: 100%;
+  border-radius: 1.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  background: hsl(from var(--hunyadi-yellow) h s calc(l + 10));
 }
