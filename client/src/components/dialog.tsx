@@ -34,8 +34,16 @@ export default function Dialog({
 
   return (
     <dialog className={styles.dialog} ref={ref}>
-      <button onClick={handleCloseClick}>Close dialog</button>
-      {children}
+      <button className={styles.closeButton} onClick={handleCloseClick}>
+        <svg width="30" height="30" viewBox="0 0 40 40">
+          <path
+            d="M 10,10 L 30,30 M 30,10 L 10,30"
+            stroke="currentColor"
+            stroke-width="3"
+          />
+        </svg>
+      </button>
+      <div className={styles.content}>{children}</div>
     </dialog>
   );
 }

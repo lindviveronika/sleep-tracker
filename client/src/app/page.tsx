@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styles from "./page.module.css";
 import SleepEntryForm from "../components/sleepEntryForm";
 import Dialog from "@/components/dialog";
+import Button from "@/components/button";
 
 export default function Home() {
   const [showNewEntryDialog, setShowNewEntryDialog] = useState(false);
@@ -29,9 +30,9 @@ export default function Home() {
       <Dialog onClose={handleCloseNewEntryDialog} open={showNewEntryDialog}>
         <SleepEntryForm />
       </Dialog>
-      <button className={styles.primaryButton} onClick={handleNewEntryClick}>
+      <Button className={styles.primaryButton} onClick={handleNewEntryClick}>
         New entry
-      </button>
+      </Button>
     </main>
   );
 }

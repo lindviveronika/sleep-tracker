@@ -1,0 +1,17 @@
+.button {
+  color: var(--raisin-black);
+  background: var(--hunyadi-yellow);
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 2.5rem;
+  width: 100%;
+  border-radius: 1.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: hsl(from var(--hunyadi-yellow) h s calc(l + 10));
+}

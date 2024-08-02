@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import hasValidDateOrders from "../utils/hasValidDateOrders";
 import { postRequest } from "../utils/postRequest";
+import Button from "./button";
 
 interface SleepEntryFormData {
   fellAsleepAt?: string;
@@ -67,7 +68,7 @@ export default function SleepEntryForm() {
           value={formData.wokeUpAt}
         />
       </label>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
     </form>
   );
 }
