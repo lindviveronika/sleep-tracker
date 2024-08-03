@@ -2,14 +2,15 @@
   background: var(--raisin-black);
   border: none;
   color: var(--primary-text-color);
-  margin: 3rem auto;
+  margin: 10vh auto;
   padding: 2rem 2rem 2.5rem;
   border-radius: 1rem;
+  animation: scaleUpDialog 250ms forwards;
 }
 
 .dialog::backdrop {
-  background-color: #3b353b;
-  opacity: 0.8;
+  background-color: #393639;
+  animation: fadeInBackDrop 250ms forwards;
 }
 
 .header {
@@ -42,4 +43,24 @@
 
 .content {
   clear: both;
+}
+
+@keyframes fadeInBackDrop {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.8;
+  }
+}
+
+@keyframes scaleUpDialog {
+  from {
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: scale(1);
+  }
 }
