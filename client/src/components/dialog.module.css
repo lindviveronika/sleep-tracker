@@ -41,10 +41,6 @@
   height: 1rem;
 }
 
-.content {
-  clear: both;
-}
-
 @keyframes fadeInBackDrop {
   from {
     opacity: 0;

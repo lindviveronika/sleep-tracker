@@ -48,7 +48,7 @@ export default function Dialog({
           </svg>
         </button>
       </div>
-      <div className={styles.content}>{children}</div>
+      <div>{children}</div>
     </dialog>
   );
 }
