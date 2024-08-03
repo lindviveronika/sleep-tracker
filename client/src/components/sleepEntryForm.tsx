@@ -53,12 +53,14 @@ export default function SleepEntryForm() {
   return (
     <form className={styles.sleepEntryForm} onSubmit={handleSubmit}>
       <DateInput
+        className={styles.input}
         label="Sleep time"
         onChange={handleFellAsleepAtChange}
         required
         value={formData.fellAsleepAt}
       />
       <DateInput
+        className={styles.input}
         label="Wakeup time"
         onChange={handleWokeUpAtChange}
         required
