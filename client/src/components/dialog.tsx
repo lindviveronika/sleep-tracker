@@ -7,10 +7,12 @@ export default function Dialog({
   children,
   onClose,
   open = false,
+  title,
 }: {
   children: React.ReactNode;
   onClose?: Function;
   open?: boolean;
+  title: string;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
 
@@ -34,15 +36,18 @@ export default function Dialog({
 
   return (
     <dialog className={styles.dialog} ref={ref}>
-      <button className={styles.closeButton} onClick={handleCloseClick}>
-        <svg width="30" height="30" viewBox="0 0 40 40">
-          <path
-            d="M 10,10 L 30,30 M 30,10 L 10,30"
-            stroke="currentColor"
-            stroke-width="3"
-          />
-        </svg>
-      </button>
+      <div className={styles.header}>
+        <h2>{title}</h2>
+        <button className={styles.closeButton} onClick={handleCloseClick}>
+          <svg viewBox="0 0 40 40">
+            <path
+              d="M 0,0 L 40,40 M 40,0 L 0,40"
+              stroke="currentColor"
+              strokeWidth="3"
+            />
+          </svg>
+        </button>
+      </div>
       <div className={styles.content}>{children}</div>
     </dialog>
   );

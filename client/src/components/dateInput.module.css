@@ -1,0 +1,16 @@
+.dateInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: var(--secondary-text-color);
+}
+
+.dateInput input {
+  color: var(--primary-text-color);
+  font-family: inherit;
+  background: inherit;
+  border: 1px solid;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  color-scheme: dark;
+}

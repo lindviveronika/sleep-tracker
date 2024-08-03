@@ -5,8 +5,8 @@
   --hunyadi-yellow: #eca72cff;
   --flame: #ee5622ff;
 
-  --primary-text-color: white;
-  --secondary-text-color: rgba(255, 255, 255, 0.7);
+  --primary-text-color: rgba(255, 255, 255, 0.9);
+  --secondary-text-color: rgba(255, 255, 255, 0.75);
 }
 
 * {

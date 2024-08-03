@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import hasValidDateOrders from "../utils/hasValidDateOrders";
 import { postRequest } from "../utils/postRequest";
 import Button from "./button";
+import DateInput from "./dateInput";
+import styles from "./sleepEntryForm.module.css";
 
 interface SleepEntryFormData {
   fellAsleepAt?: string;
@@ -49,26 +51,22 @@ export default function SleepEntryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <span>Fell asleep at:</span>
-        <input
-          onChange={handleFellAsleepAtChange}
-          type="datetime-local"
-          required
-          value={formData.fellAsleepAt}
-        />
-      </label>
-      <label>
-        <span>Woke up at:</span>
-        <input
-          onChange={handleWokeUpAtChange}
-          type="datetime-local"
-          required
-          value={formData.wokeUpAt}
-        />
-      </label>
-      <Button type="submit">Submit</Button>
+    <form className={styles.sleepEntryForm} onSubmit={handleSubmit}>
+      <DateInput
+        label="Sleep time"
+        onChange={handleFellAsleepAtChange}
+        required
+        value={formData.fellAsleepAt}
+      />
+      <DateInput
+        label="Wakeup time"
+        onChange={handleWokeUpAtChange}
+        required
+        value={formData.wokeUpAt}
+      />
+      <Button className={styles.submitButton} type="submit">
+        Submit
+      </Button>
     </form>
   );
 }

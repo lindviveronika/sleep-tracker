@@ -1,0 +1,10 @@
+.sleepEntryForm {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 1.5rem;
+  color: var(--secondary-text-color);
+}
+
+.submitButton {
+  grid-column: span 2;
+}

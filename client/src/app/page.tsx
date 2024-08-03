@@ -27,7 +27,11 @@ export default function Home() {
         repudiandae? Commodi temporibus quibusdam eos repellat dicta provident
         unde aliquam et.
       </p>
-      <Dialog onClose={handleCloseNewEntryDialog} open={showNewEntryDialog}>
+      <Dialog
+        onClose={handleCloseNewEntryDialog}
+        open={showNewEntryDialog}
+        title="New Entry"
+      >
         <SleepEntryForm />
       </Dialog>
       <Button className={styles.primaryButton} onClick={handleNewEntryClick}>
