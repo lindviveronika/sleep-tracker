@@ -43,7 +43,7 @@ export default function Dialog({
             <path
               d="M 0,0 L 40,40 M 40,0 L 0,40"
               stroke="currentColor"
-              strokeWidth="3"
+              strokeWidth="6"
             />
           </svg>
         </button>
