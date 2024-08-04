@@ -50,6 +50,24 @@ export default function SleepEntryForm() {
     setFormData({ ...formData, wokeUpAt: event.target.value });
   }
 
+  function getSleepDuration() {
+    if (!formData.wokeUpAt || !formData.fellAsleepAt) {
+      return "";
+    }
+
+    const date1 = new Date(formData.wokeUpAt).getTime();
+    const date2 = new Date(formData.fellAsleepAt).getTime();
+    const diffInMinutes = (date1 - date2) / (1000 * 60);
+    const minutes = diffInMinutes % 60;
+    const hours = Math.floor(diffInMinutes / 60);
+
+    if (minutes === 0) {
+      return `${hours} hours`;
+    }
+
+    return `${hours} hours and ${minutes} minutes`;
+  }
+
   return (
     <form className={styles.sleepEntryForm} onSubmit={handleSubmit}>
       <DateInput
@@ -66,6 +84,7 @@ export default function SleepEntryForm() {
         required
         value={formData.wokeUpAt}
       />
+      <div className={styles.info}>Sleep duration: {getSleepDuration()}</div>
       <Button className={styles.submitButton} type="submit">
         Submit
       </Button>
