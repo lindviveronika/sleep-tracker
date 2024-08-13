@@ -10,6 +10,10 @@
   margin-top: 1rem;
 }
 
+.info {
+  width: 100%;
+}
+
 .input {
   flex: 1;
 }
