@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 1rem 1.5rem;
   color: var(--secondary-text-color);
+  max-width: 40rem;
 }
 
 .submitButton {
