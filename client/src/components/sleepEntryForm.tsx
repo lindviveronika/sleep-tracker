@@ -40,6 +40,11 @@ export default function SleepEntryForm() {
       });
   }
 
+  function handleReset(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setFormData({ fellAsleepAt: "", wokeUpAt: "" });
+  }
+
   function handleFellAsleepAtChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
@@ -52,7 +57,7 @@ export default function SleepEntryForm() {
 
   function getSleepDuration() {
     if (!formData.wokeUpAt || !formData.fellAsleepAt) {
-      return "";
+      return "-";
     }
 
     const date1 = new Date(formData.wokeUpAt).getTime();
@@ -69,7 +74,11 @@ export default function SleepEntryForm() {
   }
 
   return (
-    <form className={styles.sleepEntryForm} onSubmit={handleSubmit}>
+    <form
+      className={styles.sleepEntryForm}
+      onSubmit={handleSubmit}
+      onReset={handleReset}
+    >
       <DateInput
         className={styles.input}
         label="Sleep time"
@@ -85,9 +94,12 @@ export default function SleepEntryForm() {
         value={formData.wokeUpAt}
       />
       <div className={styles.info}>Sleep duration: {getSleepDuration()}</div>
-      <Button className={styles.submitButton} type="submit">
-        Submit
-      </Button>
+      <div className={styles.actions}>
+        <Button className={styles.submitButton} type="submit">
+          Submit
+        </Button>
+        <input className={styles.resetButton} type="reset" value="Reset" />
+      </div>
     </form>
   );
 }
