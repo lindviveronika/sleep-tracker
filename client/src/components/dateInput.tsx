@@ -6,12 +6,14 @@ export default function DateInput({
   label,
   onChange,
   required = false,
+  type = "date",
   value,
 }: {
   className?: string;
   label: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   required?: boolean;
+  type?: string;
   value?: string;
 }) {
   return (
@@ -19,7 +21,7 @@ export default function DateInput({
       <span>{label}</span>
       <input
         onChange={onChange}
-        type="datetime-local"
+        type={type}
         required={required}
         value={value}
       />

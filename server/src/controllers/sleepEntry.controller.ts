@@ -3,20 +3,20 @@ import sleepEntryService from "../services/sleepEntry.service";
 import { Result } from "../types";
 
 export async function addSleepEntry(
-  fellAsleepAt: string,
-  wokeUpAt: string
+  date: string,
+  sleepTime: string,
+  wakeupTime: string
 ): Promise<Result> {
-  if (!fellAsleepAt || !wokeUpAt) {
+  if (!date || !sleepTime || !wakeupTime) {
     return {
       statusCode: 400,
       data: "Missing required fields",
     };
   }
 
-  const fellAsleepAtDate = parseDate(fellAsleepAt);
-  const wokeUpAtDate = parseDate(wokeUpAt);
+  const parsedDate = parseDate(date);
 
-  if (fellAsleepAtDate == null || wokeUpAtDate == null) {
+  if (parsedDate == null) {
     return {
       statusCode: 400,
       data: "Dates must be in date time string format",
@@ -24,8 +24,9 @@ export async function addSleepEntry(
   }
 
   const result = await sleepEntryService.insertOne({
-    fellAsleepAt: fellAsleepAtDate,
-    wokeUpAt: wokeUpAtDate,
+    date: parsedDate,
+    sleepTime,
+    wakeupTime,
   });
 
   return {

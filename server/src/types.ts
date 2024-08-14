@@ -1,8 +1,9 @@
 import { Document, InsertOneResult } from "mongodb";
 
 export interface SleepEntry extends Document {
-  fellAsleepAt: Date;
-  wokeUpAt: Date;
+  date: Date;
+  sleepTime: string;
+  wakeupTime: string;
 }
 
 export interface Service<T extends Document> {

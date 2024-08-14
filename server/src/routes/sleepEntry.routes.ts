@@ -13,8 +13,8 @@ sleepEntryRouter.get("/sleep-entries", async (req: Request, res: Response) => {
 });
 
 sleepEntryRouter.post("/sleep-entries", async (req: Request, res: Response) => {
-  const { fellAsleepAt, wokeUpAt } = req.body;
-  const { statusCode, data } = await addSleepEntry(fellAsleepAt, wokeUpAt);
+  const { date, sleepTime, wakeupTime } = req.body;
+  const { statusCode, data } = await addSleepEntry(date, sleepTime, wakeupTime);
   res.status(statusCode).send(data);
 });
 
