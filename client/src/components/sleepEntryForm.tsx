@@ -42,16 +42,9 @@ export default function SleepEntryForm() {
     setFormData({ date: "", sleepTime: "", wakeupTime: "" });
   }
 
-  function handleDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, date: event.target.value });
-  }
-
-  function handleSleepTimeChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, sleepTime: event.target.value });
-  }
-
-  function handleWakeupTimeChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, wakeupTime: event.target.value });
+  function createFormDataHandler(inputName: string) {
+    return (event: React.ChangeEvent<HTMLInputElement>) =>
+      setFormData({ ...formData, [inputName]: event.target.value });
   }
 
   function getSleepDuration() {
@@ -83,14 +76,14 @@ export default function SleepEntryForm() {
       <DateInput
         className={styles.input}
         label="Date"
-        onChange={handleDateChange}
+        onChange={createFormDataHandler("date")}
         required
         value={formData.date}
       />
       <DateInput
         className={styles.input}
         label="Sleep time"
-        onChange={handleSleepTimeChange}
+        onChange={createFormDataHandler("sleepTime")}
         required
         type="time"
         value={formData.sleepTime}
@@ -98,7 +91,7 @@ export default function SleepEntryForm() {
       <DateInput
         className={styles.input}
         label="Wakeup time"
-        onChange={handleWakeupTimeChange}
+        onChange={createFormDataHandler("wakeupTime")}
         required
         type="time"
         value={formData.wakeupTime}
