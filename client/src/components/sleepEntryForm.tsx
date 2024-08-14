@@ -31,15 +31,20 @@ export default function SleepEntryForm() {
     postRequest(`${process.env.NEXT_PUBLIC_SERVER_URL}/sleep-entries`, formData)
       .then(() => {
         console.log("successfully submitted");
+        resetForm();
       })
       .catch((error) => {
         console.log("something went wrong....", error);
       });
   }
 
+  function resetForm() {
+    setFormData({ date: "", sleepTime: "", wakeupTime: "" });
+  }
+
   function handleReset(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setFormData({ date: "", sleepTime: "", wakeupTime: "" });
+    resetForm();
   }
 
   function createFormDataHandler(inputName: string) {
