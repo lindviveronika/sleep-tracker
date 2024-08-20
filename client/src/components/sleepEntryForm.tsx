@@ -52,24 +52,45 @@ export default function SleepEntryForm() {
       setFormData({ ...formData, [inputName]: event.target.value });
   }
 
+  function setTimeToDate(time: string, baseDate: Date) {
+    const [hours, minutes] = time.split(":").map((time) => parseInt(time, 10));
+
+    const date = new Date(baseDate);
+    date.setHours(hours);
+    date.setMinutes(minutes);
+
+    return date;
+  }
+
   function getSleepDuration() {
     if (Object.values(formData).some((value) => !value)) {
       return "-";
     }
 
-    return "TODO";
+    const providedDate = new Date(formData.date!);
 
-    // const date1 = new Date(formData.wokeUpAt).getTime();
-    // const date2 = new Date(formData.fellAsleepAt).getTime();
-    // const diffInMinutes = (date1 - date2) / (1000 * 60);
-    // const minutes = diffInMinutes % 60;
-    // const hours = Math.floor(diffInMinutes / 60);
+    const wakeupDate = new Date(formData.date!);
+    wakeupDate.setDate(providedDate.getDate() + 1);
 
-    // if (minutes === 0) {
-    //   return `${hours} hours`;
-    // }
+    const sleepDateTime = setTimeToDate(formData.sleepTime!, providedDate);
+    const wakeupDateTime = setTimeToDate(formData.wakeupTime!, wakeupDate);
 
-    // return `${hours} hours and ${minutes} minutes`;
+    const diffInMinutes =
+      (wakeupDateTime.getTime() - sleepDateTime.getTime()) / (1000 * 60);
+
+    const minutes = diffInMinutes % 60;
+    let hours = Math.floor(diffInMinutes / 60);
+
+    // Assume that if hours are greater than 24 the wakeupTime and sleepTime is on the same day
+    if (hours > 24) {
+      hours = hours - 24;
+    }
+
+    if (minutes === 0) {
+      return `${hours} hours`;
+    }
+
+    return `${hours} hours and ${minutes} minutes`;
   }
 
   return (
