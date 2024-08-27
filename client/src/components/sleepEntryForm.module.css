@@ -1,16 +1,24 @@
 .sleepEntryForm {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "date ."
+    "sleepTime wakeupTime"
+    "info info"
+    "actions actions";
+  gap: 2rem;
   color: var(--secondary-text-color);
-  max-width: 40rem;
+  width: 30rem;
+  max-width: 100%;
 }
 
 .actions {
+  grid-area: actions;
   width: 100%;
   display: flex;
   align-items: baseline;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
@@ -33,9 +41,38 @@
 }
 
 .info {
+  grid-area: info;
   width: 100%;
 }
 
-.input {
-  flex: 1;
+.dateInput {
+  grid-area: date;
+}
+
+.wakeupTime {
+  grid-area: wakeupTime;
+}
+
+.sleepTime {
+  grid-area: sleepTime;
+}
+
+@media (max-width: 30rem) {
+  .sleepEntryForm {
+    grid-template-areas:
+      "date date"
+      "sleepTime sleepTime"
+      "wakeupTime wakeupTime"
+      "info info"
+      "actions actions";
+  }
+
+  .submitButton {
+    order: 0;
+  }
+
+  .submitButton,
+  .resetButton {
+    width: 100%;
+  }
 }

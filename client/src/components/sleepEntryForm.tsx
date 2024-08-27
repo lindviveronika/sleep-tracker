@@ -100,14 +100,14 @@ export default function SleepEntryForm() {
       onReset={handleReset}
     >
       <DateInput
-        className={styles.input}
+        className={styles.dateInput}
         label="Date"
         onChange={createFormDataHandler("date")}
         required
         value={formData.date}
       />
       <DateInput
-        className={styles.input}
+        className={styles.sleepTime}
         label="Sleep time"
         onChange={createFormDataHandler("sleepTime")}
         required
@@ -115,7 +115,7 @@ export default function SleepEntryForm() {
         value={formData.sleepTime}
       />
       <DateInput
-        className={styles.input}
+        className={styles.wakeupTime}
         label="Wakeup time"
         onChange={createFormDataHandler("wakeupTime")}
         required
