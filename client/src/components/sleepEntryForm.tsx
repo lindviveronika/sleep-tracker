@@ -5,6 +5,7 @@ import { postRequest } from "../utils/postRequest";
 import Button from "./button";
 import DateInput from "./dateInput";
 import styles from "./sleepEntryForm.module.css";
+import SleepEntrySuccessMessage from "./sleepEntrySuccessMessage";
 
 interface SleepEntryFormData {
   date?: string;
@@ -102,24 +103,11 @@ export default function SleepEntryForm({ onClose }: { onClose: Function }) {
     }
   }
 
-  function getSuccessMessage() {
-    return (
-      <div className={styles.successMessage}>
-        <h2 className={styles.successTitle}>🎉</h2>
-        <p>Your new entry has been submitted sucessfully!</p>
-        <Button
-          onClick={handleCloseSuccessMessage}
-          className={styles.closeButton}
-        >
-          Close
-        </Button>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.container}>
-      {showSuccessMessage && getSuccessMessage()}
+      {showSuccessMessage && (
+        <SleepEntrySuccessMessage onClose={handleCloseSuccessMessage} />
+      )}
       <form
         className={styles.sleepEntryForm}
         onSubmit={handleSubmit}

@@ -1,0 +1,32 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 1.2rem;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.title {
+  font-size: 3.5rem;
+  margin-top: 2.5rem;
+  animation: scaleIn cubic-bezier(0.52, 0.61, 0.47, 1.36) forwards 300ms;
+}
+
+.closeButton {
+  margin-top: auto;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
