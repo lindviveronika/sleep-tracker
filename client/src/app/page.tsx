@@ -32,7 +32,7 @@ export default function Home() {
         open={showNewEntryDialog}
         title="New Entry"
       >
-        <SleepEntryForm />
+        <SleepEntryForm onClose={handleCloseNewEntryDialog} />
       </Dialog>
       <Button className={styles.primaryButton} onClick={handleNewEntryClick}>
         New entry

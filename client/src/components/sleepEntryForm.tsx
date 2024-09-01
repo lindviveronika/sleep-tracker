@@ -12,12 +12,13 @@ interface SleepEntryFormData {
   wakeupTime?: string;
 }
 
-export default function SleepEntryForm() {
+export default function SleepEntryForm({ onClose }: { onClose: Function }) {
   const [formData, setFormData] = useState<SleepEntryFormData>({
     date: "",
     sleepTime: "",
     wakeupTime: "",
   });
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -30,11 +31,11 @@ export default function SleepEntryForm() {
 
     postRequest(`${process.env.NEXT_PUBLIC_SERVER_URL}/sleep-entries`, formData)
       .then(() => {
-        console.log("successfully submitted");
         resetForm();
+        setShowSuccessMessage(true);
       })
       .catch((error) => {
-        console.log("something went wrong....", error);
+        console.log("something went wrong....", error); // TODO: Add proper error handling
       });
   }
 
@@ -93,42 +94,69 @@ export default function SleepEntryForm() {
     return `${hours} hours and ${minutes} minutes`;
   }
 
-  return (
-    <form
-      className={styles.sleepEntryForm}
-      onSubmit={handleSubmit}
-      onReset={handleReset}
-    >
-      <DateInput
-        className={styles.dateInput}
-        label="Date"
-        onChange={createFormDataHandler("date")}
-        required
-        value={formData.date}
-      />
-      <DateInput
-        className={styles.sleepTime}
-        label="Sleep time"
-        onChange={createFormDataHandler("sleepTime")}
-        required
-        type="time"
-        value={formData.sleepTime}
-      />
-      <DateInput
-        className={styles.wakeupTime}
-        label="Wakeup time"
-        onChange={createFormDataHandler("wakeupTime")}
-        required
-        type="time"
-        value={formData.wakeupTime}
-      />
-      <div className={styles.info}>Sleep duration: {getSleepDuration()}</div>
-      <div className={styles.actions}>
-        <Button className={styles.submitButton} type="submit">
-          Submit
+  function handleCloseSuccessMessage() {
+    setShowSuccessMessage(false);
+
+    if (onClose) {
+      onClose();
+    }
+  }
+
+  function getSuccessMessage() {
+    return (
+      <div className={styles.successMessage}>
+        <h2 className={styles.successTitle}>🎉</h2>
+        <p>Your new entry has been submitted sucessfully!</p>
+        <Button
+          onClick={handleCloseSuccessMessage}
+          className={styles.closeButton}
+        >
+          Close
         </Button>
-        <input className={styles.resetButton} type="reset" value="Reset" />
       </div>
-    </form>
+    );
+  }
+
+  return (
+    <div className={styles.container}>
+      {showSuccessMessage && getSuccessMessage()}
+      <form
+        className={styles.sleepEntryForm}
+        onSubmit={handleSubmit}
+        onReset={handleReset}
+        style={{ visibility: showSuccessMessage ? "hidden" : "visible" }}
+      >
+        <DateInput
+          className={styles.dateInput}
+          label="Date"
+          onChange={createFormDataHandler("date")}
+          required
+          value={formData.date}
+        />
+        <DateInput
+          className={styles.sleepTime}
+          label="Sleep time"
+          onChange={createFormDataHandler("sleepTime")}
+          required
+          type="time"
+          value={formData.sleepTime}
+        />
+        <DateInput
+          className={styles.wakeupTime}
+          label="Wakeup time"
+          onChange={createFormDataHandler("wakeupTime")}
+          required
+          type="time"
+          value={formData.wakeupTime}
+        />
+        <div className={styles.info}>Sleep duration: {getSleepDuration()}</div>
+        <div className={styles.actions}>
+          <Button className={styles.submitButton} type="submit">
+            Submit
+          </Button>
+          <input className={styles.resetButton} type="reset" value="Reset" />
+        </div>
+      </form>
+    </div>
   );
 }
