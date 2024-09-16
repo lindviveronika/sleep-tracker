@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import config from "./config";
+import config from "./config.js";
 
 if (!config.mongodbUser || !config.mongodbPassword) {
   throw new Error("Missing MongoDB credentials");

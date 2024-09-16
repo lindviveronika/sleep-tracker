@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   addSleepEntry,
   getSleepEntries,
-} from "../controllers/sleepEntry.controller";
+} from "../controllers/sleepEntry.controller.js";
 import { Request, Response } from "express";
 
 const sleepEntryRouter = Router();

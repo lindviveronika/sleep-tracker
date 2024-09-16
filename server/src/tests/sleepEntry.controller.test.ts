@@ -2,7 +2,7 @@ import { expect, it, vi } from "vitest";
 import {
   addSleepEntry,
   getSleepEntries,
-} from "../controllers/sleepEntry.controller";
+} from "../controllers/sleepEntry.controller.js";
 import { describe } from "node:test";
 
 const { mockedInsertOne } = vi.hoisted(() => {

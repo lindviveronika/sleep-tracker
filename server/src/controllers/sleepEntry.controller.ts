@@ -1,6 +1,6 @@
-import { parseDate } from "../utils/parseDate";
-import sleepEntryService from "../services/sleepEntry.service";
-import { Result } from "../types";
+import { parseDate } from "../utils/parseDate.js";
+import sleepEntryService from "../services/sleepEntry.service.js";
+import { Result } from "../types.js";
 
 export async function addSleepEntry(
   date: string,

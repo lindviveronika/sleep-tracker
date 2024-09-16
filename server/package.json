@@ -2,6 +2,7 @@
   "name": "sleep-tracker-server",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "tsc && node --env-file=.env dist/index.js",
     "test": "vitest"

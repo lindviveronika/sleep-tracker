@@ -1,6 +1,6 @@
 import { Collection, InsertOneResult } from "mongodb";
-import db from "../db";
-import { Service, SleepEntry } from "../types";
+import db from "../db.js";
+import { Service, SleepEntry } from "../types.js";
 
 class SleepEntryService implements Service<SleepEntry> {
   private readonly collection: Collection<SleepEntry>;

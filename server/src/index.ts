@@ -1,9 +1,9 @@
-import config from "./config";
+import config from "./config.js";
 import express from "express";
 import cors from "cors";
-import corsOptions from "./corsOptions";
+import corsOptions from "./corsOptions.js";
 
-import sleepEntryRouter from "./routes/sleepEntry.routes";
+import sleepEntryRouter from "./routes/sleepEntry.routes.js";
 
 const app = express();
 
